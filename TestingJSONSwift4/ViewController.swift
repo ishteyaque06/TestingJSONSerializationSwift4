@@ -9,8 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var reportData=[ModelData]()
+    var reportData=[Report]()
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     override func viewDidLoad() {
         super.viewDidLoad()
         initialSetup()
@@ -21,9 +22,11 @@ class ViewController: UIViewController {
         tableView.register(cellNib, forCellReuseIdentifier:"Cell")
         tableView.estimatedRowHeight=tableView.rowHeight
         tableView.rowHeight=UITableViewAutomaticDimension
+        self.view.bringSubview(toFront: indicator)
     }
 
     func fetchData(){
+        indicator.startAnimating()
         let urlString="https://jsonplaceholder.typicode.com/users"
         let request=URLRequest(url: URL(string: urlString)!)
         let task=URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -31,9 +34,16 @@ class ViewController: UIViewController {
                 return
             }
             do{
-            self.reportData=try JSONDecoder().decode([ModelData].self, from: usableData)
+            let report=try JSONDecoder().decode([ModelData].self, from: usableData)
+                for item in report{
+                   let companyDetails=item.company.name+","+item.company.catchPhrase+","+item.company.bs
+                    let address=item.address.street+","+item.address.suite+","+item.address.city+"\n"+item.address.zipcode+"\n"+item.address.geo.lat+","+item.address.geo.lng
+                    self.reportData.append(Report(name: item.name, companyDetails: companyDetails, address: address))
+                    
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.indicator.stopAnimating()
                 }
             }catch {
                 print(error.localizedDescription)
@@ -54,9 +64,7 @@ extension ViewController:UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell=tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)as?CustomTableViewCell
-        cell?.nameLabel.text=reportData[indexPath.row].name
-        cell?.companyName.text=reportData[indexPath.row].company.name
-        cell?.addressLabel.text=reportData[indexPath.row].address.geo.lat
+        cell?.report=reportData[indexPath.row]
         return cell!
     }
 }

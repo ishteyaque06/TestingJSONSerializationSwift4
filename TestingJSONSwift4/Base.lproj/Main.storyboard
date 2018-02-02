@@ -18,6 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="D86-md-Wer">
+                                <rect key="frame" x="169.5" y="315" width="37" height="37"/>
+                                <color key="color" red="0.0" green="0.35477936269999999" blue="0.61637890340000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bfJ-CX-oQu">
                                 <rect key="frame" x="8" y="64" width="359" height="595"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -32,12 +36,15 @@
                             <constraint firstItem="bfJ-CX-oQu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="317-fc-IRD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="bfJ-CX-oQu" secondAttribute="bottom" constant="8" id="9nV-LS-2ZP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bfJ-CX-oQu" secondAttribute="trailing" constant="8" id="MSa-69-a8s"/>
+                            <constraint firstItem="D86-md-Wer" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bLA-GZ-hB7"/>
                             <constraint firstItem="bfJ-CX-oQu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="j1y-nO-0fJ"/>
+                            <constraint firstItem="D86-md-Wer" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="n0H-xj-up0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="TestingJSONSwift4" id="h6o-AN-2Rd"/>
                     <connections>
+                        <outlet property="indicator" destination="D86-md-Wer" id="ywN-CC-KgJ"/>
                         <outlet property="tableView" destination="bfJ-CX-oQu" id="bXh-Wj-XjT"/>
                     </connections>
                 </viewController>

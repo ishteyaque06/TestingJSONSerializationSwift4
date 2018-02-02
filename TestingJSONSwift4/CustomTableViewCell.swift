@@ -9,21 +9,27 @@
 import UIKit
 
 class CustomTableViewCell: UITableViewCell {
-
     @IBOutlet weak var nameLabel: UILabel!
-    
     @IBOutlet weak var companyName: UILabel!
-    
     @IBOutlet weak var addressLabel: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    var report:Report!{
+        didSet{
+        nameLabel.text=report.name
+        companyName.text=report.companyDetails
+        addressLabel.text=report.address
+        }
+    }
+   
+    
+}
+class Report{
+    var name:String?
+    var companyDetails:String?
+    var address:String?
+    init(name:String?,companyDetails:String?,address:String?) {
+        self.name=name
+        self.companyDetails=companyDetails
+        self.address=address
+    }
 }
